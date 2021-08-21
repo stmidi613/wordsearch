@@ -1,0 +1,33 @@
+header{
+    text-align: center;
+    font-size: 32px;
+    color: blue;
+}
+
+#table {
+    border: 1px solid;
+    border-color: rgb(47, 140, 223);
+    width: 50px;
+    size: 30px;
+    margin: 10px;
+}
+
+.box {
+    border: 1px solid;
+    border-color: rgb(47, 140, 223);
+    width: 50px;
+    font-size: 20px;
+    margin: 20px;
+    padding: 30px;
+}
+
+#answers{
+    color:rgb(223, 47, 47);
+    background-color: rgb(47, 140, 223);
+    border: 1px solid red;
+}
+
+#answers:hover{
+    color: rgb(47, 140, 223);
+    background-color:rgb(223, 47, 47);
+}
