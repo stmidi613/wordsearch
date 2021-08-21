@@ -7,7 +7,7 @@ window.onload = function(){
     let wordArray = words.map(eachWord => eachWord.split(""));
     const columns = document.querySelectorAll('tr');
     const cells = document.querySelectorAll('td');
-
+    console.log(document.querySelector("tr"))
     cells.forEach(cell => {
         cell.innerText =  ALPHA[Math.floor((Math.random() * 26))];
     })
@@ -16,7 +16,7 @@ window.onload = function(){
         const startingCell = cells[Math.floor(Math.random() * cells.length)];
         const cellCoordinatesRow = startingCell.parentElement.rowIndex;
         const cellCoordinatesColumn = startingCell.cellIndex;
-        return word.map((letter, index) => 
+        return word.forEach((letter, index) => 
         cellCoordinatesColumn + word.length <= columns.length ?  
         columns[cellCoordinatesRow].cells[cellCoordinatesColumn + index].innerText = letter
         : columns[cellCoordinatesRow].cells[cellCoordinatesColumn - index].innerText = letter);
@@ -26,7 +26,7 @@ window.onload = function(){
         const startingCell = cells[Math.floor(Math.random() * cells.length)];
         const cellCoordinatesRow = startingCell.parentElement.rowIndex;
         const cellCoordinatesColumn = startingCell.cellIndex;
-        return word.map((letter, index) => 
+        return word.forEach((letter, index) => 
         cellCoordinatesRow + word.length <= columns.length ?
         columns[cellCoordinatesRow + index].cells[cellCoordinatesColumn].innerText = letter
         : columns[cellCoordinatesRow - index].cells[cellCoordinatesColumn].innerText = letter);
@@ -36,7 +36,7 @@ window.onload = function(){
         const startingCell = cells[Math.floor(Math.random() * cells.length)];
         const cellCoordinatesRow = startingCell.parentElement.rowIndex;
         const cellCoordinatesColumn = startingCell.cellIndex;
-        return word.map((letter, index) => 
+        return word.forEach((letter, index) => 
         //Starting cell is in the top left of graph.
         cellCoordinatesColumn + word.length <= columns.length &&
         cellCoordinatesRow + word.length <= columns.length ?
@@ -67,10 +67,10 @@ window.onload = function(){
         }
     }
     
-    document.getElementById("answers").onclick = function(){
+    /*document.getElementById("answers").onclick = function(){
         startingCell.style.borderColor = "red";
-    }
+    }*/
 
-    return wordArray.map(word => wordPlacement(word));
+    return wordArray.forEach(word => wordPlacement(word));
 }
 
