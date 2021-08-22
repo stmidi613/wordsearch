@@ -52,8 +52,22 @@ window.onload = function(){
         //Staring cell is in the bottom right of graph.
         columns[cellCoordinatesRow - index].cells[cellCoordinatesColumn - index].innerText = letter);
         }
+        
+        wordArray.forEach((word, index) => {
+            const columns = document.querySelectorAll('tr');
+            const cells = document.querySelectorAll('td');
+            const possiblePlaces = findPlaces(word);
+            function findPlaces(word){
+                word.forEach((letter, index) => {
+                    cells.forEach(cell => {
+                        cell.cellIndex + word.length <= columns.length &&
+                        cells[cell.cellIndex + index].dataset.status === "open"
+                        }); 
+                    });
+                };
+            });
     
-    function wordPlacement(word){
+        /*function wordPlacement(word){
     switch(Math.floor(Math.random() * 3)){
         case 0:
             placeVertically(word)
@@ -65,7 +79,7 @@ window.onload = function(){
             placeDiagonally(word)
             break;
         }
-    }
+    }*/
     
     /*document.getElementById("answers").onclick = function(){
         startingCell.style.borderColor = "red";
