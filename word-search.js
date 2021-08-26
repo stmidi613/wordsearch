@@ -8,6 +8,7 @@ window.onload = function(){
     const columns = document.querySelectorAll('tr');
     const cells = document.querySelectorAll('td');
     console.log(document.querySelector("tr"))
+    console.log(cells)
     cells.forEach(cell => {
         cell.innerText =  ALPHA[Math.floor((Math.random() * 26))];
     })
@@ -53,17 +54,20 @@ window.onload = function(){
         columns[cellCoordinatesRow - index].cells[cellCoordinatesColumn - index].innerText = letter);
         }
         
-        wordArray.forEach((word, index) => {
+        wordArray.forEach((word) => {
             const columns = document.querySelectorAll('tr');
             const cells = document.querySelectorAll('td');
+            const arr = [];
             const possiblePlaces = findPlaces(word);
             function findPlaces(word){
-                word.forEach((letter, index) => {
+               word.forEach((letter, index) => {
                     cells.forEach(cell => {
                         cell.cellIndex + word.length <= columns.length &&
-                        cells[cell.cellIndex + index].dataset.status === "open"
+                        cells[cell.cellIndex + index].dataset.status === "open" ?
+                        arr.push([cell.cellIndex, cell.parentElement.rowIndex, "horizontal", cells[cell.cellIndex + index].dataset.status]) : ""
                         }); 
                     });
+                console.log(arr)
                 };
             });
     
@@ -85,6 +89,6 @@ window.onload = function(){
         startingCell.style.borderColor = "red";
     }*/
 
-    return wordArray.forEach(word => wordPlacement(word));
+    //return wordArray.forEach(word => wordPlacement(word));
 }
 
