@@ -7,8 +7,8 @@ window.onload = function(){
     let wordArray = words.map(eachWord => eachWord.split(""));
     const columns = document.querySelectorAll('tr');
     const cells = document.querySelectorAll('td');
-    console.log(document.querySelector("tr"))
-    console.log(cells)
+    //console.log(document.querySelector("tr"))
+    //console.log(cells)
     cells.forEach(cell => {
         cell.innerText =  ALPHA[Math.floor((Math.random() * 26))];
     })
@@ -60,14 +60,17 @@ window.onload = function(){
             const arr = [];
             const possiblePlaces = findPlaces(word);
             function findPlaces(word){
-               word.forEach((letter, index) => {
-                    cells.forEach(cell => {
-                        cell.cellIndex + word.length <= columns.length &&
-                        cells[cell.cellIndex + index].dataset.status === "open" ?
-                        arr.push([cell.cellIndex, cell.parentElement.rowIndex, "horizontal", cells[cell.cellIndex + index].dataset.status]) : ""
-                        }); 
+                //word.forEach((letter, index) => {
+                cells.forEach(cell => {
+                    cell.cellIndex + word.length <= columns.length &&
+                    word.forEach((letter, index) => {
+                        cells[cell.cellIndex + index].dataset.status === "open";
+                        //arr.push([cell.cellIndex, cell.parentElement.rowIndex, "horizontal"]) : ""
+                        console.log(cells[index].dataset.status === "open")
+                        console.log(cells[index])
+                        });
+                        arr.push([cell.cellIndex, cell.parentElement.rowIndex, "horizontal"]); 
                     });
-                console.log(arr)
                 };
             });
     
