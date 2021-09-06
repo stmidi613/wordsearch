@@ -33,7 +33,10 @@ window.onload = function(){
     }
 //This finds all the places the word can fit vertically.
     function canFitVertically(word){
-        return arr.map((num, i) => num);
+        return arr.map((num, i) => 
+                    num.map((eachNum, index) => 
+                    arr[index][i]
+        ));
     }
 //returns an array which contains objects
     function allPossiblePositions(word){
@@ -44,6 +47,6 @@ window.onload = function(){
     let test = arr.map(num => num.map(eachnum => eachnum));
     console.log(canFitHorizontally("time"))
     console.log(newArray)
-    console.log(arr[7][2])
-    console.log(arr.length)   
+    console.log(arr[0][2])
+    console.log(canFitVertically("time"))   
 }
