@@ -6,11 +6,12 @@ window.onload = function(){
     let word = "";
     let wordArray = words.map(eachWord => eachWord.split(""));
     let newArray = [];
+    let subArray = [];
 
     let arr = [
         [0, 0, 0, 0, 0, 0, 0, 0],
         [1, 1, 1, 1, 1, 1, 1, 1],
-        [2, 2, 2, 2, 2, 2, 2, 2],
+        [2, 2, "m", 2, 2, 2, 2, 2],
         [3, 3, 3, 3, 3, 3, 3, 3],
         [4, 4, 4, 4, 4, 4, 4, 4],
         [5, 5, 5, 5, 5, 5, 5, 5],
@@ -25,18 +26,23 @@ window.onload = function(){
 //This finds all the places the word can fit horizontally.
     function canFitHorizontally(word){
         return arr.map((num, i) => 
-            num.map((eachnum, index) => arr[0].length - word.length >= index 
-                                        && num.slice(index, index + word.length)
-                .every(item => /\d+/.test(item)) ? newArray.push([i, index, "horizontal"]) : ""
-                )
+                num.map((eachnum, index) => arr[0].length - word.length >= index 
+                        && num.slice(index, index + word.length)
+                    .every((item, index) => /\d+/.test(item) || item === word[index]) ? 
+                    newArray.push([i, index, "horizontal"]) : "")
             );
     }
 //This finds all the places the word can fit vertically.
     function canFitVertically(word){
-        return arr.map((num, i) => 
-                    num.map((eachNum, index) => 
-                    arr[index][i]
-        ));
+        subArray = arr.map((num, i) => 
+                    num.map((eachNum, index) => arr[index][i])      
+        );
+        return subArray.map((num, i) => 
+                num.map((eachnum, index) => arr[0].length - word.length >= index 
+                        && num.slice(index, index + word.length)
+                    .every(item => /\d+/.test(item) || item === word[index]) ? 
+                    newArray.push([index, i, "vertical"]) : "")
+        );
     }
 //returns an array which contains objects
     function allPossiblePositions(word){
@@ -47,6 +53,5 @@ window.onload = function(){
     let test = arr.map(num => num.map(eachnum => eachnum));
     console.log(canFitHorizontally("time"))
     console.log(newArray)
-    console.log(arr[0][2])
     console.log(canFitVertically("time"))   
 }
