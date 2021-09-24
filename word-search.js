@@ -29,8 +29,8 @@ window.onload = function(){
     function canFitHorizontally(word){
         return arr.map((num, i) => 
                 num.map((eachnum, index) => arr[0].length - word.length >= index 
-                        && num.slice(index, index + word.length)
-                    .every((item, index) => /\d+/.test(item) || item === word[index]) ? 
+                       && num.slice(index, index + word.length)
+                    .every((item, ind) => /\d+/.test(item) || item === word[ind]) ? 
                     newArray.push([i, index, "horizontal"]) : "")
             );
     }
@@ -56,12 +56,12 @@ function canFitDiagonally(word){
     num.map((eachNum, index) => i + index < arr.length ? 
     arr[index + i][index] : "") 
     );
-    fullArr = subArray.concat(subArray2).slice(1).map(arr => arr.filter(num => /\w+/.test(num)));
-        fullArr.map((num, i) => 
-            num.map((eachnum, index) => arr[0].length - word.length >= index 
-                    && num.slice(index, index + word.length)
-                .every(item => /\d+/.test(item) || item === word[index]) ? 
-                newArray.push([num[0], index, "diagonal"]) : "")
+    fullArr = subArray2.concat(subArray).slice(1).map(arr => arr.filter(num => /\w+/.test(num))).filter(arr => arr.length >= word.length);
+        return fullArr.map((num, i) => 
+            num.map((eachnum, index) => num.length - word.length >= index &&
+                    num.slice(index, index + word.length)
+                .every((item, ind) => /\d+/.test(item) || item === word[ind])
+                ? newArray.push([i, index, "diagonal"]) : "")
     );
 }
 //returns an array which contains objects
