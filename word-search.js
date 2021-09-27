@@ -22,16 +22,15 @@ window.onload = function(){
         [6, 6, 6, 6, 6, 6, 6, 6],
         [7, 7, 7, 7, 7, 7, 7, "t"]
     ]
-//This function checks to see if the word can fit inside the puzzle.
-   function allPositions() {
-    return words.map(word => choosePositions(word));
+
+function allPositions() {
+    return words.map(word=> choosePositions(word));
   };
 
     function choosePositions(word){
         canFitVertically(word);
         canFitHorizontally(word);
-        return finalArray = allPossiblePositions[Math.floor(Math.random() * allPossiblePositions.length)];
-        //return insertWord(finalArray[0]);
+        return allPossiblePositions[Math.floor(Math.random() * allPossiblePositions.length)];
     }
 
 //This finds all the places the word can fit horizontally.
@@ -40,7 +39,7 @@ window.onload = function(){
                 num.map((eachnum, index) => arr[0].length - word.length >= index
                        && num.slice(index, index + word.length)
                     .every((item, ind) => /\d+/.test(item) || item === word[ind]) ? 
-                 allPossiblePositions.push([i, index, "horizontal", word]) : "")
+                 allPossiblePositions.push([i, index, "horizontal"]) : "")
             );
     }
 //This finds all the places the word can fit vertically.
@@ -52,30 +51,31 @@ window.onload = function(){
                 num.map((eachnum, index) => arr.length - word.length >= index
                         && num.slice(index, index + word.length)
                     .every((item,ind) => /\d+/.test(item) || item === word[ind]) ? 
-                    allPossiblePositions.push([index, i, "vertical", word]) : "")
+                    allPossiblePositions.push([index, i, "vertical"]) : "")
         );
     }
 
 allPositions(words).forEach((position, index) => {insertWord(position, words[index])});
 
-    function insertWord(array){
+    function insertWord(array, word){
         if(array[2] === "vertical"){
-          array[3].split("").forEach((letter, index) => {
+          word.split("").forEach((letter, index) => {
                 arr[array[0] + index][array[1]] = letter;
             })
         }else{
-          array[3].split("").forEach((letter, index) => {
+          word.split("").forEach((letter, index) => {
                 arr[array[0]][array[1] + index] = letter;
         })
+        return arr;
         }
     }
 
 arr.forEach(eachArray => {
 document.getElementById("puzzle").insertAdjacentHTML("beforeend",
     `<tr>
-         <td>${eachArray.map(item => item)}</td>
+         <td>${eachArray}</td>
     </tr>`)
-})
+    });
 
 //This finds all the places the word can fit diagonally.
 /*function canFitDiagonally(word){
@@ -107,11 +107,11 @@ document.getElementById("puzzle").insertAdjacentHTML("beforeend",
     
     //let test = arr.map(row => row.map(eachnum => eachnum));
     console.log(canFitHorizontally("time"))
-    console.log(allPossiblePositions)
+    console.log(allPossiblePositions[Math.floor(Math.random() * allPossiblePositions.length)])
     console.log(canFitVertically("time"))
+    console.log(finalArray[0])
     //console.log(canFitDiagonally("time"))
     console.log(allPositions(words))
-    console.log(choosePositions(words))
-    console.log(typeof(finalArray[3]))
+    console.log(choosePositions(["time"]))
 }
 
