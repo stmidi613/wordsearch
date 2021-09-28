@@ -2,11 +2,10 @@ const ALPHA = "abcdefghijklmnopqrstuvwxyz";
 
 window.onload = function(){
     
-    let words = ["time"];
-    let wordArray = words.map(eachWord => eachWord.split(""));
+    let words = ["happy", "happy", "happy"];
     let allPossiblePositions = [];
     let subArray = [];
-    let subArray2 = [];
+    let verticalArray = [];
     let finalArray = [];
     let column = 8;
     let row = 8;
@@ -29,24 +28,22 @@ window.onload = function(){
         arr.map((num, i) => 
                 num.map((eachnum, index) => arr[0].length - word.length >= index
                        && num.slice(index, index + word.length)
-                    .every((item, ind) => /\d+/.test(item) || item === word[ind]) ? 
+                    .every((item, ind) => /\d/.test(item) || item === word[ind]) ? 
                  allPossiblePositions.push([i, index, "horizontal"]) : "")
             );
-        let finalArray = allPossiblePositions[Math.floor(Math.random() * allPossiblePositions.length)];
+        finalArray = allPossiblePositions[Math.floor(Math.random() * allPossiblePositions.length)];
         return insertWord(finalArray, word);
     }
 //This finds all the places the word can fit vertically.
     function canFitVertically(word){
-        subArray = arr.map((num, i) => 
-                    num.map((eachNum, index) => arr[index][i]))      
-                .map((num, i) => 
+        verticalArray = arr.map((num, i) => num.map((eachnum, index) => arr[index][i]));
+        arr.map((num, i) => 
                 num.map((eachnum, index) => arr.length - word.length >= index
-                        && num.slice(index, index + word.length)
-                    .every((item,ind) => /\d+/.test(item) || item === word[ind]) ? 
+                        && verticalArray[i].slice(index, index + word.length)
+                    .every((item, ind) => /\d/.test(item) || item === word[ind]) ? 
                     allPossiblePositions.push([index, i, "vertical"]) : "")
         );
-        let finalArray = allPossiblePositions[Math.floor(Math.random() * allPossiblePositions.length)];
-        console.log(finalArray)
+        finalArray = allPossiblePositions[Math.floor(Math.random() * allPossiblePositions.length)];
         return insertWord(finalArray, word);
     }
     
@@ -62,6 +59,8 @@ window.onload = function(){
         return arr;
         }
     }
+
+let runWords = words.map(word => Math.floor(Math.random() * 2) === 0 ? canFitHorizontally(word) : canFitVertically(word));
 
 arr.forEach(eachArray => {
 document.getElementById("puzzle").insertAdjacentHTML("beforeend",
@@ -99,14 +98,20 @@ document.getElementById("puzzle").insertAdjacentHTML("beforeend",
     //allPositions = allPossiblePositions[Math.random() * newArray.length];
     
     //let test = arr.map(row => row.map(eachnum => eachnum));
-    console.log(canFitHorizontally("time"))
-    console.log(allPossiblePositions[Math.floor(Math.random() * allPossiblePositions.length)])
-    console.log(canFitVertically("time"))
-    console.log(finalArray)
-    console.log(subArray)
-    //console.log(canFitDiagonally("time"))
-    //console.log(allPositions(words))
-    //console.log(choosePositions("time"))
-    console.log(insertWord([3, 2, "vertical"], "time"))
+    console.log(runWords)
+    console.log(arr.map((num, i) => 
+    num.map((eachnum, index) => arr[0].length - "happy".length >= index
+           && num.slice(index, index + "happy".length)
+        .every((item, ind) => /\d/.test(item) || item === "happy"[ind]) ? 
+     allPossiblePositions.push([i, index, "vertical"]) : "")
+))
+
 }
 
+/*subArray = arr.map((num, i) => 
+                    num.map((eachNum, index) => arr[index][i]))      
+                .map((num, i) => 
+                num.map((eachnum, index) => arr.length - word.length >= index
+                        && num.slice(index, index + word.length)
+                    .every((item,ind) => /\d+/.test(item) || item === word[ind]) ? 
+                    allPossiblePositions.push([index, i, "vertical"]) : "")*/
